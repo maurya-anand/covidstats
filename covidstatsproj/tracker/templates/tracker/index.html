@@ -1,0 +1,115 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" >
+
+    <title>Covid-19 Live tracker</title>
+</head>
+
+<body>
+    <!-- Just an image -->
+    <nav class="navbar navbar-dark bg-primary sticky-top">
+        <a class="navbar-brand pb-0" href="/">
+            <img src="{% static 'img/covid.png' %}" height="35" alt="">
+        </a>
+    </nav>
+
+    <div class="card-deck pt-3 ml-2 mr-2" id="stats">
+        <div class="card alert alert-warning">
+            <div class="card-body p-1">
+                <h5 class="card-title mb-0">Total cases </span></h5>
+                <hr class="mt-1">
+                <h2 class="card-text font-weight-bolder" id="total_confirmed_cases"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></h2>
+                </span>
+                <p class="text-muted small mb-0">Last updated: <span class="text-muted" id="last_updated_confirmed"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></span></p>
+            </div>
+        </div>
+        <div class="card alert alert-info">
+            <div class="card-body p-1">
+                <h5 class="card-title mb-0">Active</h5>
+                <hr class="mt-1">
+                <h2 class="card-text font-weight-bolder" id="total_active_cases"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></h2>
+                <p class="text-muted small mb-0">Last updated: <span class="text-muted" id="last_updated_active"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></span></p>
+            </div>
+        </div>
+        <div class="card alert alert-success">
+            <div class="card-body p-1">
+                <h5 class="card-title mb-0">Recovered</h5>
+                <hr class="mt-1">
+                <h2 class="card-text font-weight-bolder" id="total_recovered_cases"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></h2>
+                <p class="text-muted small mb-0">Last updated: <span class="text-muted" id="last_updated_recovered"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></span></p>
+            </div>
+        </div>
+        <div class="card alert alert-danger">
+            <div class="card-body p-1">
+                <h5 class="card-title mb-0">Deaths</h5>
+                <hr class="mt-1">
+                <h2 class="card-text font-weight-bolder" id="total_death_cases"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></h2>
+                <p class="text-muted small mb-0">Last updated: <span class="text-muted" id="last_updated_death"><span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Live...</span></span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid pt-4 pb-2">
+        <div class="row no-gutters">
+            <div class="col-sm-12 col-md-9">
+                <!--div id="hc_container" style="height: 600px;"></div-->
+                <div id="hc_container"></div>
+            </div>
+            <div class="col-12 col-md-3">
+                <table id="cases_dt" class="table table-hover table-sm"></table>
+                
+                <p class="pt-2 mb-0">
+                    <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseNextstrain" role="button" aria-expanded="false" aria-controls="collapseNextstrain" id="loadNextstrain" name="nxtdiv">
+                        Genomic epidemiology of nCoV-19 from Nextstrain
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="collapse" id="collapseNextstrain">
+        <div class="embed-responsive embed-responsive-16by9" id="nxtdiv">
+            <iframe class="embed-responsive-item" allowfullscreen id="nxtFrame"></iframe>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-1">
+        <footer class="footer mt-auto bg-light">
+            <div class="container text-center">
+                <span class="text-muted small">Data source: <a href="https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/README.md" target="_blank">2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE</a> and <a href="https://doi.org/10.1093/bioinformatics/bty407" target="_blank">Nextstrain: Hadfield et al, Bioinformatics (2018)</a></span>
+                <br>
+                <span class="text-muted small">Created by Anand Maurya  <a href="mailto:anandmaurya@hotmail.com" target="_blank"><i class="fas fa-at"></i>   </a><a href="https://www.linkedin.com/in/anand-maurya-/" target="_blank"> <i class="fab fa-linkedin"></i></a></span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/53f73f5a8e.js" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+    <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>
